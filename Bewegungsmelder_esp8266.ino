@@ -3,7 +3,6 @@
 
  It will reconnect to the server if the connection is lost using a blocking
  reconnect function. 
-
 */
 
 
@@ -15,7 +14,6 @@
 const char* ssid = "Makerspace-Wiesbaden01";
 const char* password = "goonline";
 const char* mqtt_server = "192.168.1.252";
-
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -75,10 +73,7 @@ void reconnect() {
     // Attempt to connect
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
-      // Once connected, publish an announcement...
-      client.publish("outTopic", "hello world");
       // ... and resubscribe
-      client.subscribe("inTopic");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -107,16 +102,17 @@ void loop() {
   }
   client.loop();
   long now = millis();
-  if (now - lastMsg > 500) {
+  if (now - lastMsg > 500) { // run loop every 500ms
     lastMsg = now;
     ++value;
     a = digitalRead(D2);
+
     if(a != ahis) {
       ahis = a;
       snprintf (msg, 50, "%d", a);
       Serial.print("Publish message: ");
       Serial.println(msg);
       client.publish("stat/sensor_1/bewegung", msg, true);   
+      }
     }
-  }
   }
