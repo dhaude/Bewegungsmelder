@@ -90,9 +90,9 @@ void reconnect() {
 }
 
 void setup() {
-  pinMode(D4, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
-  pinMode(D2, INPUT);
-  pinMode(D1, INPUT_PULLUP);     // manual activation button
+  pinMode(D4, OUTPUT);       // Initialize the BUILTIN_LED pin as an output
+  pinMode(D2, INPUT_PULLUP); // Sensor signal via Opto coupler
+  pinMode(D1, INPUT_PULLUP); // manual activation button
       
   Serial.begin(115200);
   setup_wifi();
