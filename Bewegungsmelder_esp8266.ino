@@ -106,22 +106,17 @@ void loop() {
     reconnect();
   }
   client.loop();
-
   long now = millis();
   if (now - lastMsg > 500) {
     lastMsg = now;
     ++value;
-    
     a = digitalRead(D2);
-  
-  if(a != ahis) {
-    ahis = a;
-
-    snprintf (msg, 50, "%d", a);
-    Serial.print("Publish message: ");
-    Serial.println(msg);
-    client.publish("stat/sensor_1/bewegung", msg, true);   
-
-  }
+    if(a != ahis) {
+      ahis = a;
+      snprintf (msg, 50, "%d", a);
+      Serial.print("Publish message: ");
+      Serial.println(msg);
+      client.publish("stat/sensor_1/bewegung", msg, true);   
+    }
   }
   }
